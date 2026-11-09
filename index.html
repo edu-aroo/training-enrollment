@@ -3,169 +3,270 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#061a35">
-  <meta name="description" content="AROO — Construisons ensemble les prochaines formations scientifiques">
-  <title>AROO · Votre parcours, nos prochaines formations</title>
+  <meta name="theme-color" content="#0b2e4f">
+  <meta name="description" content="AROO — Inscription aux formations : R, statistiques, KoboCollect, montage vidéo, recherche reproductible.">
+  <title>AROO · Inscription aux formations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <div class="ambient" aria-hidden="true"></div>
 
-  <header class="top">
-    <a class="brand brand-centered" href="./" aria-label="AROO">
-      <img src="assets/logo.png" alt="Logo AROO">
-    </a>
-    <span class="top-tag">✦ Une enquête, des idées, des découvertes</span>
-  </header>
-
-  <main class="shell">
-    <section class="hero">
-      <div class="eyebrow">MARINE · ENVIRONMENTAL · ECOLOGICAL · SOCIO-ECONOMIC SCIENCES</div>
+  <header class="hero">
+    <div class="hero-inner">
+      <a class="brand" href="./" aria-label="AROO">
+        <img src="assets/logo.png" alt="Logo AROO">
+      </a>
+      <p class="eyebrow">Sciences marines · environnementales · écologiques · socio-économiques</p>
       <h1>Et si la prochaine formation <em>commençait avec vous&nbsp;?</em></h1>
-      <p>
+      <p class="lead">
         Partagez vos envies d'apprendre. Quelques questions, une pincée de curiosité,
         et des formations mieux adaptées à votre parcours.
       </p>
-      <div class="pills">
-        <span>✧ 3 petites étapes</span>
-        <span>◷ Environ 3 minutes</span>
-        <span>◉ Vos choix comptent</span>
-      </div>
-    </section>
+      <ul class="pills">
+        <li>4 étapes</li>
+        <li>Environ 5 minutes</li>
+      </ul>
+    </div>
+  </header>
 
-    <section class="survey-stage" aria-label="Questionnaire AROO avec illustrations pédagogiques">
-      <aside class="side-visual left-panel" aria-live="polite">
-        <div class="visual-card">
-          <div class="visual-label">Inspiration</div>
-          <img id="leftVisual" src="assets/step1-left.svg" alt="Illustration de personnes en formation">
-          <h3 id="leftVisualTitle">Une expérience accueillante</h3>
-          <p id="leftVisualCaption">Un parcours chaleureux pour mieux connaître chaque participant et son contexte.</p>
-        </div>
+  <main class="shell">
+    <section class="stage">
+
+      <aside class="side side-left" aria-live="polite">
+        <figure class="visual">
+          <img id="leftImg" src="assets/img/atelier.jpg" alt="">
+          <figcaption>
+            <span class="tag" id="leftTag">Étape 1</span>
+            <h3 id="leftTitle"></h3>
+            <p id="leftText"></p>
+          </figcaption>
+        </figure>
       </aside>
 
-      <section class="survey" aria-label="Questionnaire AROO">
-        <div class="progress-top">
-          <span id="stepLabel">Étape 1 sur 3</span>
-          <span id="percent">0 %</span>
-        </div>
-        <div class="track"><div id="bar"></div></div>
+      <section class="card" aria-label="Formulaire d'inscription">
+        <ol class="stepper" id="stepper">
+          <li class="active"><span>1</span>Vous</li>
+          <li><span>2</span>Formations</li>
+          <li><span>3</span>Justificatif</li>
+          <li><span>4</span>Validation</li>
+        </ol>
 
-        <form id="surveyForm" novalidate>
+        <form id="enrolForm" novalidate>
+
+          <!-- ÉTAPE 1 -->
           <div class="step active" data-step="0">
-            <div class="step-icon">👋</div>
-            <div class="kicker">01 / Faisons connaissance</div>
-            <h2>Qui se cache derrière ces belles idées&nbsp;?</h2>
-            <p class="hint">
-              Commençons par les présentations. Ces informations nous aideront à vous recontacter
-              au sujet des formations.
-            </p>
+            <div class="step-icon" aria-hidden="true">👋</div>
+            <p class="kicker">01 / Faisons connaissance</p>
+            <h2>Qui est prêt à se lancer dans l'aventure de la formation&nbsp;?</h2>
+            <p class="hint">Commençons par les présentations. Ces informations nous aideront à vous recontacter au sujet des formations.</p>
 
-            <label for="name">Comment souhaitez-vous que nous vous appelions ? <b>*</b></label>
-            <input id="name" name="nom_prenom" autocomplete="name" required placeholder="Votre nom et prénom">
-
-            <label for="email">Où pouvons-nous vous écrire ? <b>*</b></label>
-            <input id="email" name="email" type="email" autocomplete="email" required placeholder="vous@exemple.org">
-
-            <label for="phone">Et votre numéro de téléphone ? <span>(facultatif)</span></label>
-            <input id="phone" name="telephone" type="tel" autocomplete="tel" placeholder="Ex. +261 34 00 000 00">
-
-            <label for="domain">Quel est votre univers professionnel ou d'étude ? <b>*</b></label>
-            <input id="domain" name="domaine" required placeholder="Ex. sciences marines, communication, biodiversité…">
-
-            <label for="affiliationType">À quelle structure êtes-vous rattaché(e) ? <b>*</b></label>
-            <select id="affiliationType" name="affiliation_type" required>
-              <option value="">Choisissez votre situation…</option>
-              <option value="universite">🎓 Université / établissement d’enseignement</option>
-              <option value="recherche">🔬 Institut ou centre de recherche</option>
-              <option value="ong">🌿 ONG / association</option>
-              <option value="entreprise">🏢 Entreprise / organisation privée</option>
-              <option value="administration">🏛️ Administration / organisme public</option>
-              <option value="independant">✨ Indépendant(e) / freelance / sans rattachement</option>
-              <option value="autre">🧭 Autre structure</option>
-            </select>
-
-            <div id="affiliationNameBox" hidden>
-              <label for="affiliationName">Comment s’appelle votre structure ? <b>*</b></label>
-              <input id="affiliationName" name="affiliation_nom" placeholder="Ex. Université de Toamasina, ONG …" maxlength="180">
-              <div class="mini">Indiquez le nom officiel ou usuel de votre organisme.</div>
+            <div class="grid2">
+              <div class="field">
+                <label for="name">Comment souhaitez-vous que nous vous appelions ? <b>*</b></label>
+                <input id="name" name="nom_prenom" autocomplete="name" required placeholder="Votre nom et prénom">
+              </div>
+              <div class="field">
+                <label for="email">Où pouvons-nous vous écrire ? <b>*</b></label>
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder="vous@exemple.com">
+                <small>Vos accès seront envoyés à cette adresse.</small>
+              </div>
+              <div class="field">
+                <label for="phone">Et votre numéro de téléphone ? <b>*</b></label>
+                <input id="phone" name="telephone" type="tel" autocomplete="tel" required placeholder="Ex. +261 34 00 000 00">
+              </div>
+              <div class="field">
+                <label for="facebook">Profil Facebook (lien ou nom) <b>*</b></label>
+                <input id="facebook" name="facebook" required placeholder="facebook.com/votre.profil ou Prénom Nom">
+                <small>Pour vous ajouter au groupe Facebook (forum) de la formation.</small>
+              </div>
             </div>
 
-            <div class="mini">🌊 Tous les domaines et tous les types de rattachement sont les bienvenus !</div>
+            <div class="field">
+              <label for="domain">Quel est votre univers professionnel ou d'étude ? <b>*</b></label>
+              <input id="domain" name="domaine" required placeholder="Ex. sciences humaines, communication, biodiversité…">
+            </div>
+
+            <div class="field">
+              <label for="affiliationType">À quelle structure êtes-vous rattaché(e) ? <b>*</b></label>
+              <select id="affiliationType" name="affiliation_type" required>
+                <option value="">Choisissez votre situation…</option>
+                <option value="universite">🎓 Université / établissement d’enseignement</option>
+                <option value="recherche">🔬 Institut ou centre de recherche</option>
+                <option value="ong">🌿 ONG / association</option>
+                <option value="entreprise">🏢 Entreprise / organisation privée</option>
+                <option value="administration">🏛️ Administration / organisme public</option>
+                <option value="independant">🆓 Indépendant(e) / freelance / sans rattachement</option>
+                <option value="autre">🧭 Autre structure</option>
+              </select>
+            </div>
+
+            <div class="field" id="affiliationNameBox" hidden>
+              <label for="affiliationName">Comment s’appelle votre structure&nbsp;? <b>*</b></label>
+              <input id="affiliationName" name="affiliation_nom" maxlength="180" placeholder="Ex. Université de Toamasina, ONG …">
+              <small>Indiquez le nom officiel ou usuel de votre organisme.</small>
+              <div id="partnerNotice" class="notice ok" hidden>
+                <strong>Structure partenaire reconnue&nbsp;: toutes les formations sont gratuites.</strong>
+                Un justificatif d’appartenance (carte d’étudiant, attestation, badge…) vous sera demandé à l’étape&nbsp;3.
+              </div>
+            </div>
+
+            <p class="mini">🌊 Tous les domaines et tous les types de rattachement sont les bienvenus !</p>
           </div>
 
+          <!-- ÉTAPE 2 -->
           <div class="step" data-step="1">
-            <div class="step-icon">🚀</div>
-            <div class="kicker">02 / Cap sur vos compétences</div>
+            <div class="step-icon" aria-hidden="true">🚀</div>
+            <p class="kicker">02 / Cap sur vos compétences</p>
             <h2>Quelles nouvelles compétences vous tentent&nbsp;?</h2>
-            <p class="hint">
-              Imaginez votre programme idéal : choisissez autant de formations que vous le souhaitez.
-            </p>
-            <div class="choices" id="courseChoices"></div>
-            <div class="mini">
-              ✨ Plusieurs choix possibles. Les tarifs affichés sont indicatifs, et votre sélection ne constitue
-              pas une inscription ni un engagement de paiement.
+            <p class="hint">Imaginez votre programme idéal : choisissez autant de formations que vous le souhaitez.
+            Ouvrez « Programme détaillé » pour voir les objectifs, le contenu et les prérequis.</p>
+
+            <ul class="info-box" id="courseInfo"></ul>
+            <div class="filters" id="filters" role="tablist" aria-label="Filtrer par thème"></div>
+            <div class="courses" id="courseList"></div>
+
+            <div class="total-bar" id="totalBar">
+              <span id="totalCount">Aucune formation sélectionnée</span>
+              <strong id="totalAmount">0 Ar</strong>
             </div>
           </div>
 
+          <!-- ÉTAPE 3 -->
           <div class="step" data-step="2">
-            <div class="step-icon">🎨</div>
-            <div class="kicker">03 / Le petit bonus humain</div>
+            <div class="step-icon" aria-hidden="true">🧾</div>
+            <p class="kicker">03 / Paiement et justificatif</p>
+            <h2 id="step3Title">Envoyez votre justificatif</h2>
+
+            <!-- Cas : structure partenaire -->
+            <div id="payPartner" hidden>
+              <div class="notice ok big">
+                <strong>Formations gratuites</strong>
+                <span>En tant que membre de <em id="partnerName"></em>, vous ne payez rien.
+                Joignez un justificatif d’appartenance&nbsp;: carte d’étudiant, attestation d’inscription,
+                badge, contrat ou attestation de l’employeur.</span>
+              </div>
+            </div>
+
+            <!-- Cas : tarif standard -->
+            <div id="payStandard" hidden>
+              <div class="amount-due">
+                <span>Montant à payer</span>
+                <strong id="amountDue">0 Ar</strong>
+                <small id="amountDetail"></small>
+              </div>
+
+              <p class="hint">Envoyez le montant par Mobile Money sur l’un des comptes ci-dessous, puis joignez la capture d’écran de la confirmation de paiement.</p>
+
+              <div class="wallets" id="wallets"></div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="operator">Moyen de paiement utilisé <b>*</b></label>
+                  <select id="operator" name="mode_paiement">
+                    <option value="">Choisissez…</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="reference">Référence de la transaction <span class="opt">(facultatif)</span></label>
+                  <input id="reference" name="reference_paiement" placeholder="Ex. 2511091234567">
+                  <small>Figure dans le SMS de confirmation.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="proof" id="proofLabel">Justificatif <b>*</b></label>
+              <label class="drop" id="drop" for="proof">
+                <input id="proof" type="file" accept="image/*,application/pdf">
+                <span class="drop-icon" aria-hidden="true">⬆</span>
+                <span id="dropText"><strong>Choisir un fichier</strong> ou le glisser ici<br><small>Image (JPG, PNG) ou PDF</small></span>
+              </label>
+              <div id="proofPreview" class="proof-preview" hidden></div>
+            </div>
+
+            <div class="process">
+              <h3>Après votre inscription</h3>
+              <ol>
+                <li><b>Tout de suite&nbsp;:</b> vous recevez un e-mail de confirmation.</li>
+                <li><b>Sous 24&nbsp;h&nbsp;:</b> nous vérifions votre justificatif.</li>
+                <li><b>Après vérification&nbsp;:</b> vous recevez le lien de la plateforme, votre identifiant et votre mot de passe.</li>
+              </ol>
+              <p class="mini">Sans nouvelles de notre part après 24&nbsp;h, répondez simplement à l’e-mail de confirmation.</p>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 4 -->
+          <div class="step" data-step="3">
+            <div class="step-icon" aria-hidden="true">🎨</div>
+            <p class="kicker">04 / Le petit bonus humain</p>
             <h2>Et en dehors de la recherche&nbsp;?</h2>
-            <p class="hint">
-              Parce que derrière chaque jeu de données, il y a une personne ! Deux questions légères
-              pour mieux connaître notre communauté.
-            </p>
+            <p class="hint">Parce que derrière chaque jeu de données, il y a une personne ! Deux questions légères
+            pour mieux connaître notre communauté.</p>
 
-            <label for="hobby">Quand vous décrochez de l'écran, qu'aimez-vous faire ? <span>(facultatif)</span></label>
-            <input id="hobby" name="loisir" placeholder="Ex. randonnée, musique, lecture, plongée…">
+            <div class="field">
+              <label for="hobby">Quand vous décrochez de l'écran, qu'aimez-vous faire ? <span class="opt">(facultatif)</span></label>
+              <input id="hobby" name="loisir" placeholder="Ex. randonnée, musique, lecture, plongée…">
+            </div>
+            <div class="field">
+              <label for="food">Quel plat vous met instantanément de bonne humeur ? <span class="opt">(facultatif)</span></label>
+              <input id="food" name="plat_prefere" placeholder="Ex. ravitoto, romazava, pizza…">
+            </div>
 
-            <label for="food">Quel plat vous met instantanément de bonne humeur ? <span>(facultatif)</span></label>
-            <input id="food" name="plat_prefere" placeholder="Ex. ravitoto, romazava, pizza…">
+            <h3 class="recap-title">Récapitulatif de votre inscription</h3>
+            <div class="recap" id="recap"></div>
 
             <div class="consent">
               <label class="checkline">
-                <input type="checkbox" id="consent" required>
+                <input type="checkbox" id="consent">
                 <span>J'accepte que mes réponses soient utilisées par AROO pour organiser les formations et me contacter à ce sujet. <b>*</b></span>
               </label>
-              <p>
-                Les données sont destinées à l'équipe organisatrice. Évitez d'indiquer des informations sensibles
-                dans les réponses libres. Vous pouvez demander l'accès ou la suppression de vos réponses en contactant l'organisateur.
-              </p>
+              <p class="mini">Les données sont destinées à l'équipe organisatrice. Vous pouvez demander l'accès ou la suppression de vos réponses en contactant l'organisateur (<a id="contactLink" href="#"></a>).</p>
             </div>
           </div>
 
           <div id="feedback" role="alert" aria-live="polite"></div>
 
           <div class="actions">
-            <button type="button" id="back" class="secondary" hidden>← Retour</button>
-            <button type="button" id="next">Continuer →</button>
-            <button type="submit" id="submit" hidden>Envoyer mes réponses ✨</button>
+            <button type="button" id="back" class="btn ghost" hidden>← Retour</button>
+            <button type="button" id="next" class="btn">Continuer →</button>
+            <button type="submit" id="submit" class="btn" hidden>Envoyer mon inscription</button>
           </div>
         </form>
 
-        <div id="success" hidden>
-          <div class="step-icon">🎉</div>
-          <h2>Merci pour votre contribution !</h2>
-          <p>Vos idées contribuent à imaginer les prochaines formations AROO.</p>
-          <button id="restart" class="secondary">Nouvelle réponse</button>
+        <div id="success" class="success" hidden>
+          <div class="success-icon" aria-hidden="true">✓</div>
+          <h2>Inscription envoyée</h2>
+          <p id="successText"></p>
+          <ol class="success-steps">
+            <li>Un e-mail de confirmation vient de vous être envoyé (pensez à vérifier les spams).</li>
+            <li>Nous vérifions votre justificatif sous 24&nbsp;h.</li>
+            <li>Vous recevez ensuite le lien de la plateforme, votre identifiant et votre mot de passe.</li>
+          </ol>
+          <p class="mini">Sans réponse de notre part après 24&nbsp;h, répondez à l’e-mail de confirmation.</p>
+          <button id="restart" class="btn ghost" type="button">Nouvelle inscription</button>
         </div>
       </section>
 
-      <aside class="side-visual right-panel" aria-live="polite">
-        <div class="visual-card">
-          <div class="visual-label">Focus</div>
-          <img id="rightVisual" src="assets/step1-right.svg" alt="Illustration de formation et de questionnaire">
-          <h3 id="rightVisualTitle">Un questionnaire structuré</h3>
-          <p id="rightVisualCaption">Des questions claires et académiques, avec une présentation plus vivante et engageante.</p>
-        </div>
+      <aside class="side side-right" aria-live="polite">
+        <figure class="visual">
+          <img id="rightImg" src="assets/img/formulaire.jpg" alt="">
+          <figcaption>
+            <span class="tag" id="rightTag">À savoir</span>
+            <h3 id="rightTitle"></h3>
+            <p id="rightText"></p>
+          </figcaption>
+        </figure>
       </aside>
     </section>
-
-    <footer>
-      AROO · Advancing Research towards Open Science
-      <span>Empowering researchers through data science, open tools and reproducible research.</span>
-    </footer>
   </main>
+
+  <footer class="footer">
+    <strong>AROO · Advancing Research towards Open Science</strong>
+    <span>Empowering researchers through data science, open tools and reproducible research.</span>
+    <small>Photos : Freepik, Unsplash.</small>
+  </footer>
 
   <script src="assets/config.js"></script>
   <script src="assets/app.js"></script>
