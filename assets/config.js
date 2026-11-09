@@ -3,8 +3,9 @@
 window.AROO_CONFIG = {
   appsScriptUrl: 'https://script.google.com/macros/s/AKfycbx7DjVVz64Q0ODbmVpHYEjbQvbMlyRAVzrEegNaMOTS5fpHdOyQv6IqW-kAI8brYT4b/exec',
   contactEmail: 'aroo.madaeducation@gmail.com', // facultatif : adresse de contact visible dans votre politique de confidentialité
-  surveyVersion: '1.1'
+  surveyVersion: '1.2'
 };
+
 // Format : [id, emoji, titre, description, tarif en ariary (nombre entier)].
 // Pour changer un tarif, modifier uniquement le dernier nombre de sa ligne (ex. 25000).
 window.AROO_COURSES = [
