@@ -145,6 +145,11 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 .total-bar strong{font-size:18px}
 
 /* ---------- Paiement ---------- */
+.value-banner{display:flex;gap:14px;align-items:flex-start;margin:4px 0 18px;padding:16px 18px;border-radius:16px;background:#fff6dd;border:2px solid #f2b705;box-shadow:0 6px 18px rgba(242,183,5,.18)}
+.value-icon{font-size:28px;line-height:1}
+.value-banner strong{display:block;font-size:18px;color:#5c3b00;margin-bottom:4px}
+.value-banner p{margin:0;font-size:15px;color:#3d2a00}
+.value-banner b{color:#8a3d00;white-space:nowrap}
 .amount-due{display:flex;flex-direction:column;align-items:flex-start;background:var(--navy);color:#fff;border-radius:16px;padding:16px 20px;margin-bottom:16px}
 .amount-due span{font-size:13px;font-weight:600;color:#cfe3f1}
 .amount-due strong{font-size:30px;letter-spacing:-.01em}
