@@ -223,7 +223,7 @@ window.AROO_COURSES = [
     duree: '',
     certificat: 'Certificat délivré pour chaque formation réussie',
     prix: 50000,
-    disponible: false,
+    disponible: true,
     messageIndisponible: 'Bientôt disponible'
   },
   {
@@ -252,7 +252,7 @@ window.AROO_COURSES = [
     duree: '',
     certificat: 'Certificat délivré pour chaque formation réussie',
     prix: 50000,
-    disponible: false,
+    disponible: true,
     messageIndisponible: 'Bientôt disponible'
   },
   {
@@ -280,7 +280,7 @@ window.AROO_COURSES = [
     duree: '',
     certificat: 'Certificat délivré pour chaque formation réussie',
     prix: 75000,
-    disponible: false,
+    disponible: true,
     messageIndisponible: 'Bientôt disponible'
   },
   {
