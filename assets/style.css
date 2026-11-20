@@ -260,3 +260,7 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
 #usernameStatus.err{color:#b42318;font-weight:600}
 .show-pass{display:inline-flex;align-items:center;gap:6px;font-weight:500;cursor:pointer}
 .show-pass input{width:auto;margin:0}
+
+/* ---------- Rappel spams ---------- */
+.spam-tip{margin:12px 0 6px;padding:10px 12px;border-radius:10px;background:#fff6dd;border:1px solid #f2b705;color:#5c3b00;font-size:14px;text-align:left}
+.spam-tip b{color:#8a3d00}
