@@ -37,7 +37,7 @@
       right: {
         img: 'assets/img/formulaire.jpg', alt: 'Formulaire en ligne affiché sur un ordinateur portable',
         tag: 'Pourquoi ces informations ?', title: 'Vos accès arrivent par e-mail',
-        list: ['E-mail : lien de la plateforme et identifiants', 'Facebook : ajout au groupe-forum de la formation', 'Structure : pour adapter les formations à votre contexte']
+        list: ['E-mail : lien de la plateforme et identifiants', 'Téléphone : pour vous joindre en cas de besoin', 'Structure : pour adapter les formations à votre contexte']
       }
     },
     {
@@ -73,8 +73,8 @@
       },
       right: {
         img: 'assets/img/atelier.jpg', alt: 'Participants échangeant pendant un atelier',
-        tag: 'Communauté', title: 'Un groupe Facebook par formation',
-        text: 'Après validation, vous serez ajouté(e) au groupe-forum de la formation pour échanger avec le formateur et les autres participants.'
+        tag: 'On reste en contact', title: 'Une question pendant la formation ?',
+        text: 'Répondez simplement à l’e-mail contenant vos accès : nous sommes là pour vous aider à aller jusqu’au bout.'
       }
     }
   ];
@@ -447,7 +447,7 @@
     add('Nom', $('name').value.trim());
     add('E-mail', $('email').value.trim());
     add('Téléphone', $('phone').value.trim());
-    add('Facebook', $('facebook').value.trim());
+    add('Facebook', $('facebook').value.trim() || '—');
     add('Structure', affName.value.trim() || affType.options[affType.selectedIndex].text);
     const ul = el('ul');
     selectedCourses().forEach((c) => ul.append(el('li', null, `${c.titre} — ${state.partner ? 'Gratuit' : fmt(c.prix)}`)));

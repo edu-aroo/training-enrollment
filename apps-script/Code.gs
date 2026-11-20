@@ -35,6 +35,10 @@ const CONFIG = {
   PARTENAIRES: ['ZA SPaFi', 'SpaFi','IHSM', 'IH.SM', 'Institut Halieutique et des Sciences Marines'],
   STATUTS: ['À vérifier', 'Validé', 'Refusé'],
 
+  // Durée de validité d'une inscription, à partir de l'envoi des accès (acces_envoye_le).
+  // Le retrait des fichiers des cours est fait par les formules IMPORTRANGE (même durée : 30).
+  VALIDITE_JOURS: 30,
+
   // Une entrée par formation. « prefix » = début des codes dans la colonne « formations » ;
   // « debutTitre » = début des titres dans « formations_titres » (pour lister les niveaux dans l'e-mail).
   // Nouvelle formation : ajoutez une ligne ici avec le même code que l'`id` dans assets/config.js.
@@ -75,7 +79,7 @@ function doPost(e) {
     const d = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (d.website) return reply({ ok: true }); // pot de miel anti-robots
 
-    const required = ['response_id', 'nom_prenom', 'email', 'telephone', 'facebook', 'domaine', 'affiliation_type', 'justificatif_base64'];
+    const required = ['response_id', 'nom_prenom', 'email', 'telephone', 'domaine', 'affiliation_type', 'justificatif_base64'];
     const missing = required.filter(function (k) { return !d[k]; });
     if (missing.length || !d.consent || !Array.isArray(d.formations) || !d.formations.length ||
         (d.affiliation_type !== 'independant' && !d.affiliation_nom)) {
@@ -249,7 +253,7 @@ function notifyAdmin_(d, file) {
     '<div style="font-family:Arial,sans-serif;font-size:14px;color:#10243a">' +
     '<p><b>Nouvelle inscription à vérifier</b></p>' +
     '<p>' + esc_(d.nom_prenom) + ' · ' + esc_(d.email) + ' · ' + esc_(d.telephone) + '<br>' +
-    'Facebook : ' + esc_(d.facebook) + '<br>' +
+    (d.facebook ? 'Facebook : ' + esc_(d.facebook) + '<br>' : '') +
     'Structure : ' + esc_(d.affiliation_nom || d.affiliation_type) + ' — <b>' + esc_(d.tarif) + '</b><br>' +
     'Formations : ' + esc_(d.formations_titres) + '<br>' +
     'Montant : ' + esc_(formatAr_(d.montant_total)) +
@@ -485,7 +489,11 @@ function sendAccessToValidated() {
       '<b>Mot de passe :</b> ' + esc_(mdp) +
       (courses.length > 1 ? '<br><i>Le même identifiant et le même mot de passe servent pour toutes vos formations.</i>' : '') +
       '</p>' +
-      '<p>Vous serez ajouté(e) au groupe Facebook de la formation. Pour toute question, répondez à cet e-mail.</p>' +
+      '<p style="background:#fff4e0;padding:10px 12px;border-radius:8px">Votre accès est valable <b>' +
+      CONFIG.VALIDITE_JOURS + ' jours</b>, jusqu’au <b>' +
+      Utilities.formatDate(new Date(Date.now() + CONFIG.VALIDITE_JOURS * 86400000), 'Indian/Antananarivo', 'dd/MM/yyyy') +
+      '</b>.</p>' +
+      '<p>Pour toute question, répondez à cet e-mail.</p>' +
       '<p>Bonne formation,<br>L’équipe AROO</p></div>';
 
     MailApp.sendEmail({
