@@ -62,7 +62,7 @@ window.AROO_CONFIG = {
 window.AROO_COURSES = [
   {
     id: 'r_debutant',
-    emoji: '📊',
+    emoji: '®️',
     titre: 'Formation R · Débutant (application sur des données liées aux sciences marines)',
     categorie: 'Analyse de données',
     niveau: 'Débutant',
@@ -90,7 +90,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'r_intermediaire',
-    emoji: '📈',
+    emoji: '®️',
     titre: 'Formation R · Intermédiaire (application sur des données liées aux sciences marines)',
     categorie: 'Analyse de données',
     niveau: 'Intermédiaire',
@@ -119,7 +119,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'r_avance',
-    emoji: '🗺️',
+    emoji: '®️',
     titre: 'Formation R · Avancé (application sur des données liées aux sciences marines)',
     categorie: 'Analyse de données',
     niveau: 'Avancé',
@@ -146,7 +146,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'intro_stats_r',
-    emoji: '🔬',
+    emoji: '📊',
     titre: 'Introduction à la statistique sur R',
     categorie: 'Statistiques',
     niveau: 'Intermédiaire',
@@ -173,7 +173,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'modelisation',
-    emoji: '🧮',
+    emoji: '📈',
     titre: 'Modélisation statistique',
     categorie: 'Statistiques',
     niveau: 'Avancé',
@@ -228,7 +228,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'kobo_intermediaire',
-    emoji: '🧩',
+    emoji: '📱',
     titre: 'KoboCollect et XLSForm · Intermédiaire',
     categorie: 'Collecte de données',
     niveau: 'Intermédiaire',
@@ -257,7 +257,7 @@ window.AROO_COURSES = [
   },
   {
     id: 'kobo_expert',
-    emoji: '🎯',
+    emoji: '📱',
     titre: 'KoboCollect et XLSForm · Expert',
     categorie: 'Collecte de données',
     niveau: 'Expert',

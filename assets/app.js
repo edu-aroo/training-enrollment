@@ -364,7 +364,7 @@
     if (state.step === 3) renderRecap();
     if (!box.checked) return setAccountMsg('');
     if (acct.hasAccount === true) {
-      setAccountMsg('🎉 Bonne nouvelle : nous avons retrouvé votre compte AROO avec cette adresse e-mail. Vous gardez votre identifiant et votre mot de passe habituels.', 'ok');
+      setAccountMsg(' 🔓Bonne nouvelle : nous avons retrouvé votre compte AROO avec cette adresse e-mail. Vous gardez votre identifiant et votre mot de passe habituels.', 'ok');
     } else if (acct.hasAccount === false) {
       setAccountMsg('🤔 Hmm, aucun compte AROO avec ' + $('email').value.trim() + '. Utilisez la même adresse e-mail que lors de votre première inscription (bouton « Retour »), ou décochez la case pour créer vos identifiants.', 'warn');
     } else {
