@@ -87,7 +87,7 @@ a{color:var(--navy-2)}
 label{display:block;font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink)}
 label b,.checkline b{color:var(--err)}
 .opt{font-weight:400;color:var(--muted)}
-input[type=text],input:not([type]),input[type=email],input[type=tel],select{
+input[type=text],input:not([type]),input[type=email],input[type=tel],input[type=password],select{
   width:100%;font:inherit;font-size:15px;color:var(--ink);background:#fff;
   border:1.5px solid #b9c8d4;border-radius:12px;padding:11px 13px;transition:border-color .15s,box-shadow .15s;
 }
@@ -234,3 +234,29 @@ input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 
   .recap dt{border-bottom:0;padding-bottom:2px}
   .actions{flex-wrap:wrap}.actions .btn{flex:1}
 }
+
+/* ---------- Validité 30 jours (étape 2) ---------- */
+.value-banner.validity{background:#eaf5fb;border-color:#2b8ac6;box-shadow:0 6px 18px rgba(43,138,198,.18)}
+.value-banner.validity strong{color:#0b3d5c}
+.value-banner.validity p{color:#14324a}
+.value-banner.validity b{color:#0b5d8f;white-space:normal}
+.value-banner.validity ul{margin:10px 0 0;padding-left:0;list-style:none;font-size:15px;color:#14324a}
+.value-banner.validity li{margin:6px 0}
+
+/* ---------- Nom = certificat (étape 1) ---------- */
+.notice.cert{display:flex;flex-direction:column;gap:4px;margin:0 0 16px;background:#f3efff;border-color:#b9a7f0;color:#3b2a7a}
+.notice.cert strong{font-size:16px}
+.notice.cert span{color:#3b2a7a}
+
+/* ---------- Panneau latéral : texte + liste ---------- */
+.visual-lead{display:block;font-weight:600;color:#5c3b00;background:#fff6dd;border-left:3px solid #f2b705;border-radius:6px;padding:8px 10px;margin-bottom:6px}
+
+/* ---------- Identifiants AROO (étape 4) ---------- */
+#newAccountBox{margin-top:6px}
+#accountMsg{margin:10px 0 6px}
+.notice.warn{background:#fff6dd;border-color:#f2b705;color:#5c3b00}
+.notice.info{background:#eaf5fb;border-color:#2b8ac6;color:#14324a}
+#usernameStatus.ok{color:#1b7f4b;font-weight:600}
+#usernameStatus.err{color:#b42318;font-weight:600}
+.show-pass{display:inline-flex;align-items:center;gap:6px;font-weight:500;cursor:pointer}
+.show-pass input{width:auto;margin:0}

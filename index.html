@@ -62,10 +62,17 @@
             <h2>Qui est prêt à se lancer dans l'aventure de la formation&nbsp;?</h2>
             <p class="hint">Commençons par les présentations. Ces informations nous aideront à vous recontacter au sujet des formations.</p>
 
+            <div class="notice cert" role="note">
+              <strong>🎓 Ce nom ira tout droit sur votre certificat&nbsp;!</strong>
+              <span>Écrivez votre vrai nom et prénom, comme sur vos papiers officiels.
+              « Boss du Récif », « Zaza Mamy » ou « Captain Fanihy » nous feraient bien rire…
+              mais beaucoup moins votre futur employeur&nbsp;😉</span>
+            </div>
+
             <div class="grid2">
               <div class="field">
-                <label for="name">Comment souhaitez-vous que nous vous appelions ? <b>*</b></label>
-                <input id="name" name="nom_prenom" autocomplete="name" required placeholder="Votre nom et prénom">
+                <label for="name">Votre nom et prénom (tels qu’ils apparaîtront sur le certificat) <b>*</b></label>
+                <input id="name" name="nom_prenom" autocomplete="name" required placeholder="Ex. RAKOTO Jean Marc">
               </div>
               <div class="field">
                 <label for="email">Où pouvons-nous vous écrire ? <b>*</b></label>
@@ -120,15 +127,22 @@
             <div class="step-icon" aria-hidden="true">🚀</div>
             <p class="kicker">02 / Cap sur vos compétences</p>
             <h2>Quelles nouvelles compétences vous tentent&nbsp;?</h2>
-            <p class="hint">Imaginez votre programme idéal : choisissez autant de formations que vous le souhaitez.
+            <p class="hint">Choisissez les formations que vous comptez vraiment terminer ce mois-ci.
             Ouvrez « Programme détaillé » pour voir les objectifs, le contenu et les prérequis.</p>
 
-            <div class="value-banner" role="note">
-              <span class="value-icon" aria-hidden="true">💡</span>
+            <div class="value-banner validity" role="note">
+              <span class="value-icon" aria-hidden="true">⏳</span>
               <div>
-                <strong>Une opportunité à saisir</strong>
-                <p>Ailleurs, chacune de ces formations coûte généralement entre <b>150&nbsp;000&nbsp;Ar et 500&nbsp;000&nbsp;Ar</b>.
-                Profitez de cette opportunité pour acquérir des compétences précieuses sur la plateforme AROO.</p>
+                <strong>Votre accès dure 30 jours : pas de panique, c’est large&nbsp;!</strong>
+                <p>Chaque formation se boucle en <b>1 semaine maximum</b>. Votre accès est valable
+                <b>30 jours</b> à partir de l’e-mail contenant vos identifiants&nbsp;: de quoi avancer
+                à votre rythme, même avec un agenda de poulpe (huit bras, huit tâches&nbsp;🐙).</p>
+                <ul>
+                  <li>🎯 <b>Cochez seulement ce que vous comptez terminer en 30 jours.</b>
+                  Inutile de tout prendre d’un coup pour n’en finir qu’une seule&nbsp;!</li>
+                  <li>🔁 <b>Les inscriptions sont ouvertes toute l’année</b>&nbsp;: revenez quand vous voulez pour la suite.</li>
+                  <li>📅 Pas tout à fait fini au bout de 30 jours&nbsp;? Il suffira de vous réinscrire.</li>
+                </ul>
               </div>
             </div>
 
@@ -200,7 +214,7 @@
               <ol>
                 <li><b>Tout de suite&nbsp;:</b> vous recevez un e-mail de confirmation.</li>
                 <li><b>Sous 24&nbsp;h&nbsp;:</b> nous vérifions votre justificatif.</li>
-                <li><b>Après vérification&nbsp;:</b> vous recevez le lien de la plateforme, votre identifiant et votre mot de passe.</li>
+                <li><b>Après vérification&nbsp;:</b> vous recevez le lien de la plateforme, votre identifiant et votre mot de passe. Vos 30 jours d’accès commencent à ce moment-là.</li>
               </ol>
               <p class="mini">Sans nouvelles de notre part après 24&nbsp;h, répondez simplement à l’e-mail de confirmation.</p>
             </div>
@@ -221,6 +235,37 @@
             <div class="field">
               <label for="food">Quel plat vous met instantanément de bonne humeur ? <span class="opt">(facultatif)</span></label>
               <input id="food" name="plat_prefere" placeholder="Ex. ravitoto, romazava, pizza…">
+            </div>
+
+            <h3 class="recap-title">🔑 Vos identifiants AROO</h3>
+            <label class="checkline">
+              <input type="checkbox" id="hasAccount">
+              <span>J’ai déjà un compte AROO (je me suis déjà inscrit·e à une formation)</span>
+            </label>
+            <div id="accountMsg" class="notice" hidden></div>
+
+            <div id="newAccountBox">
+              <p class="hint">Choisissez l’identifiant et le mot de passe qui vous serviront sur toutes les plateformes AROO.
+              Ici, place à la créativité&nbsp;: <b>votre surnom est le bienvenu</b>&nbsp;! <em>captain_fanihy</em>,
+              <em>boss.du.recif</em>… tant que vous vous en souvenez&nbsp;😄</p>
+              <div class="grid2">
+                <div class="field">
+                  <label for="username">Identifiant <b>*</b></label>
+                  <input id="username" name="identifiant" autocomplete="username" maxlength="20"
+                         autocapitalize="none" spellcheck="false" placeholder="Ex. captain_fanihy">
+                  <small id="usernameStatus">3 à 20 caractères : lettres, chiffres, point, tiret ou _ (sans espace).</small>
+                </div>
+                <div class="field">
+                  <label for="password">Mot de passe <b>*</b></label>
+                  <input id="password" name="mot_de_passe" type="password" autocomplete="new-password" placeholder="6 caractères minimum">
+                  <small><label class="show-pass"><input type="checkbox" id="showPass"> Afficher le mot de passe</label></small>
+                </div>
+                <div class="field">
+                  <label for="password2">Confirmez le mot de passe <b>*</b></label>
+                  <input id="password2" type="password" autocomplete="new-password" placeholder="Le même, encore une fois">
+                </div>
+              </div>
+              <p class="mini">Évitez de réutiliser le mot de passe de votre e-mail ou de Facebook : il vous sera renvoyé par e-mail avec vos accès.</p>
             </div>
 
             <h3 class="recap-title">Récapitulatif de votre inscription</h3>
@@ -251,7 +296,7 @@
           <ol class="success-steps">
             <li>Un e-mail de confirmation vient de vous être envoyé (pensez à vérifier les spams).</li>
             <li>Nous vérifions votre justificatif sous 24&nbsp;h.</li>
-            <li>Vous recevez ensuite le lien de la plateforme, votre identifiant et votre mot de passe.</li>
+            <li>Vous recevez ensuite le lien de la plateforme, votre identifiant et votre mot de passe, valables 30 jours.</li>
           </ol>
           <p class="mini">Sans réponse de notre part après 24&nbsp;h, répondez à l’e-mail de confirmation.</p>
           <button id="restart" class="btn ghost" type="button">Nouvelle inscription</button>

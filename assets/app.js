@@ -48,8 +48,9 @@
       },
       right: {
         img: unsplash('photo-1682687982049-b3d433368cd1'), alt: 'Plongeur au-dessus d’un récif corallien',
-        tag: 'Bon à savoir', title: 'Des exemples tirés des sciences marines',
-        list: ['Formations indépendantes : choisissez librement', 'Plusieurs niveaux pour R et KoboCollect', 'Un certificat pour chaque formation réussie', 'Accompagnement en présentiel en cas d’échec à un niveau']
+        tag: 'Bon à savoir', title: '💡 Une opportunité à saisir',
+        text: 'Ailleurs, chacune de ces formations coûte généralement entre 150 000 Ar et 500 000 Ar. Profitez-en pour acquérir des compétences précieuses sur la plateforme AROO.',
+        list: ['Des exemples tirés des sciences marines', 'Formations indépendantes : choisissez librement', 'Plusieurs niveaux pour R et KoboCollect', 'Un certificat pour chaque formation réussie', 'Accompagnement en présentiel en cas d’échec à un niveau']
       }
     },
     {
@@ -85,12 +86,15 @@
     $(side + 'Title').textContent = v.title;
     const box = $(side + 'Text');
     box.textContent = '';
+    // Texte et liste peuvent être combinés (texte d'abord, puis la liste).
+    if (v.text) {
+      if (v.list) box.append(el('span', 'visual-lead', v.text));
+      else box.textContent = v.text;
+    }
     if (v.list) {
       const ul = document.createElement('ul');
       v.list.forEach((t) => { const li = document.createElement('li'); li.textContent = t; ul.append(li); });
       box.append(ul);
-    } else {
-      box.textContent = v.text;
     }
   }
   // Si une photo en ligne ne charge pas, on affiche une photo locale.
@@ -334,6 +338,107 @@
   drop.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0]));
 
   // ------------------------------------------------------------------
+  //  Étape 4 : identifiants AROO (nouveau compte ou compte existant)
+  //  Les vérifications passent par le script Google (doGet) :
+  //   ?action=check_username&u=…   et   ?action=check_email&email=…
+  // ------------------------------------------------------------------
+  const USER_RE = /^[A-Za-z0-9._-]{3,20}$/;
+  const acct = {
+    emailChecked: '',   // dernier e-mail vérifié
+    hasAccount: null,   // true / false / null (inconnu)
+    userState: 'idle'   // idle | checking | free | taken | invalid | unknown
+  };
+  const api = (params) => fetch((CFG.appsScriptUrl || '').trim() + '?' + new URLSearchParams(params))
+    .then((r) => r.json());
+
+  function setAccountMsg(text, cls) {
+    const m = $('accountMsg');
+    m.hidden = !text;
+    if (text) { m.className = 'notice ' + cls; m.textContent = text; }
+  }
+
+  function syncAccountBox() {
+    const box = $('hasAccount');
+    box.disabled = acct.hasAccount === true;   // compte retrouvé : on garde ce compte
+    $('newAccountBox').hidden = box.checked;
+    if (state.step === 3) renderRecap();
+    if (!box.checked) return setAccountMsg('');
+    if (acct.hasAccount === true) {
+      setAccountMsg('🎉 Bonne nouvelle : nous avons retrouvé votre compte AROO avec cette adresse e-mail. Vous gardez votre identifiant et votre mot de passe habituels.', 'ok');
+    } else if (acct.hasAccount === false) {
+      setAccountMsg('🤔 Hmm, aucun compte AROO avec ' + $('email').value.trim() + '. Utilisez la même adresse e-mail que lors de votre première inscription (bouton « Retour »), ou décochez la case pour créer vos identifiants.', 'warn');
+    } else {
+      setAccountMsg('Nous retrouverons votre compte grâce à votre adresse e-mail : utilisez bien la même que lors de votre première inscription.', 'info');
+    }
+  }
+  $('hasAccount').addEventListener('change', syncAccountBox);
+
+  async function checkEmailAccount() {
+    const email = $('email').value.trim().toLowerCase();
+    if (!email || acct.emailChecked === email) return syncAccountBox();
+    acct.emailChecked = email;
+    acct.hasAccount = null;
+    try { const j = await api({ action: 'check_email', email }); acct.hasAccount = j.ok ? !!j.hasAccount : null; }
+    catch { acct.hasAccount = null; }
+    if (acct.hasAccount) $('hasAccount').checked = true;
+    syncAccountBox();
+  }
+
+  function renderUserStatus() {
+    const s = $('usernameStatus');
+    const msg = {
+      idle: ['', '3 à 20 caractères : lettres, chiffres, point, tiret ou _ (sans espace).'],
+      invalid: ['err', '3 à 20 caractères : lettres, chiffres, point, tiret ou _ (sans espace ni accent).'],
+      checking: ['', 'Vérification…'],
+      free: ['ok', '✓ Super, cet identifiant est libre !'],
+      taken: ['err', '✗ Déjà pris… quelqu’un a eu la même idée géniale. Essayez une variante !'],
+      unknown: ['', 'Vérification impossible pour l’instant : nous le ferons à l’envoi.']
+    }[acct.userState];
+    s.className = msg[0];
+    s.textContent = msg[1];
+  }
+
+  let userTimer;
+  $('username').addEventListener('input', () => {
+    clearTimeout(userTimer);
+    const u = $('username').value.trim();
+    if (!u) acct.userState = 'idle';
+    else if (!USER_RE.test(u)) acct.userState = 'invalid';
+    else { acct.userState = 'checking'; userTimer = setTimeout(checkUsername, 450); }
+    renderUserStatus();
+    renderRecap();
+  });
+  async function checkUsername() {
+    const u = $('username').value.trim();
+    let next = 'unknown';
+    try {
+      const j = await api({ action: 'check_username', u });
+      if (j.ok) next = !j.valid ? 'invalid' : (j.available ? 'free' : 'taken');
+    } catch { /* réseau : on revérifiera à l’envoi */ }
+    if (u !== $('username').value.trim()) return;   // l’utilisateur a continué à taper
+    acct.userState = next;
+    renderUserStatus();
+  }
+
+  $('showPass').addEventListener('change', (e) => {
+    ['password', 'password2'].forEach((id) => ($(id).type = e.target.checked ? 'text' : 'password'));
+  });
+
+  function validateAccount() {
+    if ($('hasAccount').checked) {
+      if (acct.hasAccount === false) return 'Aucun compte AROO trouvé avec cette adresse e-mail : revenez à l’étape 1 pour la corriger, ou décochez « J’ai déjà un compte AROO ».';
+      return '';
+    }
+    const u = $('username').value.trim();
+    if (!USER_RE.test(u)) { $('username').focus(); return 'Choisissez un identifiant de 3 à 20 caractères (lettres, chiffres, point, tiret ou _).'; }
+    if (acct.userState === 'checking') return 'Un instant, nous vérifions que votre identifiant est libre…';
+    if (acct.userState === 'taken') { $('username').focus(); return 'Cet identifiant est déjà pris : choisissez-en un autre.'; }
+    if ($('password').value.length < 6) { $('password').focus(); return 'Votre mot de passe doit contenir au moins 6 caractères.'; }
+    if ($('password').value !== $('password2').value) { $('password2').focus(); return 'Les deux mots de passe ne sont pas identiques.'; }
+    return '';
+  }
+
+  // ------------------------------------------------------------------
   //  Étape 4 : récapitulatif
   // ------------------------------------------------------------------
   function renderRecap() {
@@ -350,6 +455,7 @@
     add('Total', state.partner ? 'Gratuit (structure partenaire)' : fmt(total()));
     if (!state.partner) add('Paiement', $('operator').value + ($('reference').value.trim() ? ' · réf. ' + $('reference').value.trim() : ''));
     add('Justificatif', state.proof ? state.proof.name : '—');
+    add('Identifiant', $('hasAccount').checked ? 'Compte AROO existant' : ($('username').value.trim() || '—'));
     $('recap').textContent = '';
     $('recap').append(dl);
   }
@@ -366,7 +472,7 @@
     btnSubmit.hidden = i !== steps.length - 1;
     feedback.textContent = '';
     if (i === 2) syncPaymentStep();
-    if (i === 3) renderRecap();
+    if (i === 3) { renderRecap(); checkEmailAccount(); }
     setVisual('left', VISUALS[i].left);
     setVisual('right', VISUALS[i].right);
     if (scroll) document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -393,6 +499,10 @@
         feedback.textContent = state.partner ? 'Joignez votre justificatif d’appartenance.' : 'Joignez la capture d’écran de votre paiement.';
         return false;
       }
+    }
+    if (state.step === 3) {
+      const err = validateAccount();
+      if (err) { feedback.textContent = err; return false; }
     }
     if (state.step === 3 && !$('consent').checked) {
       feedback.textContent = 'Votre accord est nécessaire pour envoyer l’inscription.';
@@ -436,6 +546,9 @@
       website: ''
     };
     if (state.partner) { data.mode_paiement = ''; data.reference_paiement = ''; }
+    data.compte_existant = $('hasAccount').checked;
+    if (data.compte_existant) { data.identifiant = ''; data.mot_de_passe = ''; }
+    else data.identifiant = $('username').value.trim();
 
     state.busy = true;
     btnSubmit.disabled = true;
@@ -453,14 +566,19 @@
         // Le serveur ignore les doublons grâce à response_id.
         await fetch(endpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body });
       }
-      if (!ok) throw new Error(msg);
+      if (!ok) {
+        if (/identifiant/i.test(msg)) { acct.userState = /pris/.test(msg) ? 'taken' : 'invalid'; renderUserStatus(); }
+        const e2 = new Error(msg); e2.server = true; throw e2;
+      }
 
       form.hidden = true;
       $('stepper').querySelectorAll('li').forEach((li) => { li.classList.remove('active'); li.classList.add('done'); });
       $('successText').textContent = `Merci ${$('name').value.trim()} ! Votre inscription à ${courses.length} formation${courses.length > 1 ? 's' : ''} a bien été transmise.`;
       $('success').hidden = false;
     } catch (err) {
-      feedback.textContent = 'L’envoi a échoué. Vérifiez votre connexion et réessayez : vos réponses sont conservées dans le formulaire.';
+      feedback.textContent = err && err.server && err.message
+        ? err.message
+        : 'L’envoi a échoué. Vérifiez votre connexion et réessayez : vos réponses sont conservées dans le formulaire.';
     } finally {
       state.busy = false;
       btnSubmit.disabled = false;
